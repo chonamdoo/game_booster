@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/native_outer_view"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@android:color/white">
+    <com.couchgram.gamebooster.ui.widget.view.shapedimageview.ShapedImageView
+        android:id="@+id/native_icon_image"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@null"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="14dp"
+        app:borderColor="@android:color/transparent"
+        app:borderWidth="1dp"
+        app:borderRadius="5dp"
+        app:shape="round_rectangle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView android:id="@+id/native_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:textColor="#393939"
+        android:textSize="16sp"
+        android:gravity="left"
+        android:layout_marginStart="7dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/native_icon_image"
+        app:layout_constraintEnd_toStartOf="@+id/native_cta"/>
+    <Button
+        android:id="@+id/native_cta"
+        android:layout_width="wrap_content"
+        android:minWidth="70dp"
+        android:layout_height="25dp"
+        android:textColor="#00D0C6"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:clickable="true"
+        android:padding="5dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/img_add_app_download_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+        android:id="@+id/ad_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:src="@drawable/img_add_app_ad"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/native_cta"/>
+</android.support.constraint.ConstraintLayout>

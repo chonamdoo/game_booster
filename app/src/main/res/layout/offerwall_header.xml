@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_game_box_ad"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ad_top_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                fresco:actualImageScaleType="fitXY"
+                fresco:progressBarImage="@drawable/img_booster_loading"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:roundBottomLeft="false"
+                fresco:roundBottomRight="false"
+                fresco:roundTopLeft="true"
+                fresco:roundTopRight="true"
+                fresco:roundedCornerRadius="5dp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="10dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ad_top_img_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                fresco:actualImageScaleType="fitXY"
+                fresco:placeholderImageScaleType="fitXY"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:progressBarImage="@drawable/img_booster_loading"
+                fresco:progressBarImageScaleType="centerInside" />
+
+            <LinearLayout
+                android:id="@+id/ad_text_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/ad_top_img_icon"
+                android:layout_toStartOf="@+id/ad_top_btn_cta"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ad_top_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="#383838"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/ad_top_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="#606060"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@id/ad_top_btn_cta"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_game_box_ad_orange"
+                android:clickable="false"
+                android:duplicateParentState="true"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

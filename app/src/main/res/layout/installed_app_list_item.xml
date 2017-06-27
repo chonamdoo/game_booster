@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/row_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/bg_game_add_item_row">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/app_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="7dp"
+        android:layout_alignParentStart="true"
+        fresco:actualImageScaleType="fitXY"
+        fresco:backgroundImage="@color/list_bg_color"/>
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/app_icon"
+        android:layout_toStartOf="@+id/add_boost"
+        android:layout_centerVertical="true"
+        android:maxLines="1"
+        android:textColor="#393939"
+        android:textSize="16sp"/>
+    <ToggleButton
+        android:id="@id/add_boost"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="7dp"
+        android:focusable="false"
+        android:clickable="false"
+        android:background="@drawable/bg_game_add_btn"
+        android:layout_centerVertical="true"
+        android:duplicateParentState="true"
+        android:textOff=""
+        android:textOn=""
+        />
+</RelativeLayout>

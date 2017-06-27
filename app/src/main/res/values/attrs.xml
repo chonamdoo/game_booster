@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="setting_menu">
+        <attr name="title_text" format="string"/>
+        <attr name="desc_text" format="string"/>
+        <attr name="title_text_size" format="dimension"/>
+        <attr name="desc_text_size" format="dimension"/>
+        <attr name="bg_res" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="ShapeImageView">
+        <attr name="shape" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="round_rectangle" value="1" />
+        </attr>
+        <attr name="borderColor" format="color" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderRadius" format="dimension" />
+        <attr name="pressedColor" format="color" />
+    </declare-styleable>
+</resources>

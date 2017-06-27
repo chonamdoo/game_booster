@@ -1,0 +1,184 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url "https://maven.fabric.io/public" }
+    maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
+    maven { url "http://dl.bintray.com/ironsource-mobile/android-adapters" }
+}
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    project.archivesBaseName = "GameBooster"
+    defaultConfig {
+        applicationId "com.couchgram.gamebooster"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 11
+        versionName "1.2.4"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "x86", "armeabi-v7a", "armeabi"
+        }
+    }
+    signingConfigs {
+        releaseWith {
+            storeFile file(keystore);
+            storePassword keystore_pass
+            keyAlias key_alias
+            keyPassword key_pass
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.releaseWith
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDir 'src/main/libs'
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            java.srcDirs += ['src/main/kotlin']
+            resources.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/aidl']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    dexOptions {
+        maxProcessCount Runtime.getRuntime().availableProcessors()
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def apkFile = output.outputFile
+            if (apkFile != null && apkFile.name.endsWith('.apk')) {
+                def newApkName = apkFile.name.replace("-" + variant.buildType.name, "")
+                newApkName = newApkName.replace(".apk",
+                        "-v" + defaultConfig.versionName + "-" + defaultConfig.versionCode +
+                                "-" + variant.buildType.name.toUpperCase() + ".apk")
+                output.outputFile = new File(apkFile.parent, newApkName)
+            }
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+}
+configurations.all {
+    resolutionStrategy.force "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
+    resolutionStrategy.force "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
+    resolutionStrategy.force "com.android.support:animated-vector-drawable:$rootProject.ext.supportVersion"
+    resolutionStrategy.force "com.android.support:transition:$rootProject.ext.supportVersion"
+    resolutionStrategy.force "com.google.code.findbugs:jsr305:$rootProject.ext.findbugsVersion"
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile "com.android.support:multidex:$rootProject.ext.multidexVersion"
+
+    compile "com.google.android.gms:play-services-vision:$rootProject.ext.playServiceVersion"
+    compile "com.google.android.gms:play-services-analytics:$rootProject.ext.playServiceVersion"
+    compile "com.google.firebase:firebase-messaging:$rootProject.ext.playServiceVersion"
+    compile "com.google.firebase:firebase-ads:$rootProject.ext.playServiceVersion"
+
+    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
+
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
+
+    compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
+    compile "com.facebook.fresco:imagepipeline-okhttp3:$rootProject.ext.frescoVersion"
+    compile "com.facebook.fresco:animated-gif:$rootProject.ext.frescoVersion"
+
+    compile "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
+    compile "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stethoVersion"
+
+    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
+
+    compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttpVersion"
+
+    compile "com.github.marcinmoskala:PreferenceHolder:$rootProject.ext.preferenceholderVersion"
+
+    compile "com.jakewharton.timber:timber:$rootProject.ext.timberVersion"
+    compile "me.majiajie:pager-bottom-tab-strip:$rootProject.ext.pagerBottomLayoutVersion"
+
+    compile "com.iarcuschin:simpleratingbar:$rootProject.ext.simpleratingbarVersion"
+    compile "com.github.rubengees:EasyHeaderFooterAdapter:$rootProject.ext.easyHeaderAdapterVersion"
+
+    compile "com.github.instacart.truetime-android:library-extension-rx:$rootProject.ext.truetimeVersion"
+
+    compile "com.trello.rxlifecycle2:rxlifecycle:$rootProject.ext.rxlifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:$rootProject.ext.rxlifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.rxlifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rootProject.ext.rxlifecycleVersion"
+
+    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion") {
+        transitive = true;
+    }
+
+    compile "com.ironsource.sdk:mediationsdk:$rootProject.ext.ironsourceVersion"
+    compile "com.ironsource.adapters:vungleadapter:$rootProject.ext.ironsourceVungleAdapter"
+    compile "com.ironsource.adapters:unityadsadapter:$rootProject.ext.ironsourceUnityadApterVerion"
+    compile "com.ironsource.adapters:applovinadapter:$rootProject.ext.ironsourceAppLovinAdapterVersion"
+
+    compile("com.mopub:mopub-sdk-banner:$rootProject.ext.mopubVersion") {
+        transitive = true
+    }
+
+    compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    compile "javax.inject:javax.inject:$rootProject.ext.injectVersion"
+    compile "pub.devrel:easypermissions:$rootProject.ext.easyPermissionVersion"
+    compile "com.github.czy1121:settingscompat:$rootProject.ext.settingscompatVersion"
+
+    compile "com.github.wind0ws:rxbus2:1.0.0"
+
+    compile "com.airbnb.android:lottie:$rootProject.ext.lottieVersion"
+
+    compile(name: 'appwall-release', ext: 'aar')
+    compile(name: 'common-release', ext: 'aar')
+    testCompile 'junit:junit:4.12'
+}
+apply plugin: 'com.google.gms.google-services'
